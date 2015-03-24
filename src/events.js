@@ -1,6 +1,7 @@
 /**
  * The Events object is similar to Backbone.Events
  * This version implements on, off and trigger methods
+ *
  * Usage: extend your custom objects with AV.Events
  */
 
