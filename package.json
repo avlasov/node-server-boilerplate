@@ -1,0 +1,14 @@
+{
+  "name": "code-samples",
+  "version": "0.0.1",
+  "engines": {
+    "node": "0.12.x"
+  },
+  "dependencies": {
+    "express": "^4.12.3"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.1",
+    "supertest": "^0.15.0"
+  }
+}
