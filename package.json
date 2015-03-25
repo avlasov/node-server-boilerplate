@@ -5,10 +5,15 @@
     "node": "0.12.x"
   },
   "dependencies": {
-    "express": "^4.12.3"
+    "express": "^4.12.3",
+    "rootpath": "^0.1.2"
   },
   "devDependencies": {
     "mocha": "^2.2.1",
     "supertest": "^0.15.0"
+  },
+  "scripts": {
+    "test": "mocha ./test/server",
+    "start": "node app.js"
   }
 }
