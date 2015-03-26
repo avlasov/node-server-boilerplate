@@ -29,7 +29,7 @@ deploy:
         overwrite: true
     - script:
         name: transfer application
-        code |
+        code: |
           pwd
           ls -la
           scp -i $PRIVATEKEY_PATH -P 2048 app.js package.json avlasov@avlasov.us:/home/avlasov/projects/samples
