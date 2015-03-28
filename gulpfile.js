@@ -7,7 +7,6 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var del = require('del');
-var addSrc = require('gulp-add-src');
 
 var srcDir = 'src/',
 destDir = 'public/',
