@@ -6,7 +6,7 @@
  */
 
 (function() {
-	
+
 	// namespace
 	this.AV = this.AV || {};
 	this.AV.Events = this.AV.Events || {
@@ -34,7 +34,7 @@
 			if (!this.events[event]) return;
 
 			var callbacks = this.events[event],
-				i = 0, 
+				i = 0,
 				len = callbacks.length;
 
 			for (; i < len; i++) {
@@ -47,18 +47,18 @@
 		/**
 		 * This method allows to unregister event or array of events
 		 * @param {String | Array} event The name of the event, or array of events
-		 * @param {Function} callback [optional] if reference to a callback function is provided, 
+		 * @param {Function} callback [optional] if reference to a callback function is provided,
 		 * only that callback will be unregistered (only works when unregistering a single event)
 		 */
 		off : function(event, callback) {
 			if (event instanceof Array) {
-				for (var i = 0, ilen = event.length; i<ilen;i++) {
-					this.off(event[i]);
+				for (var j = 0, jlen = event.length; j<jlen;j++) {
+					this.off(event[j]);
 				}
 				return;
 			}
 			var callbacks = this.events[event],
-				i = 0, 
+				i = 0,
 				len = callbacks.length;
 			if (!callbacks) {
 				return;
