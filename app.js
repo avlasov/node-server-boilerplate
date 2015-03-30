@@ -1,14 +1,13 @@
 require('rootpath')();
 var express = require('express'),
-app = express();
+app = express(),
+mw = require('./lib/middleware');
 
 app.use(express.static('public'));
 
-app.get('/users', function(req, res) {
-    res.writeHead(200,{'Content-Type': 'application/json'});
-    res.write(JSON.stringify({users: ['Peter', 'Paul', 'Mary']}));
-    res.end();
-});
+mw(app);
+
+app.use(require('./lib/controllers/'));
 
 var server = app.listen(3000, function() {
     var addr = server.address();
