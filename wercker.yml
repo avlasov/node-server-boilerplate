@@ -36,6 +36,7 @@ deploy:
           pwd
           ls -la
           scp -i $PRIVATEKEY_PATH -P 2048 -rp public avlasov@avlasov.us:/home/avlasov/projects/samples
+          scp -i $PRIVATEKEY_PATH -P 2048 -rp lib avlasov@avlasov.us:/home/avlasov/projects/samples
           scp -i $PRIVATEKEY_PATH -P 2048 app.js package.json avlasov@avlasov.us:/home/avlasov/projects/samples
     - script:
         name: npm install
