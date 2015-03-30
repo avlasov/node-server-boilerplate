@@ -43,4 +43,4 @@ deploy:
         code: ssh -i $PRIVATEKEY_PATH -l avlasov avlasov.us -p 2048 "cd /home/avlasov/projects/samples && npm install --production"
     - script:
         name: restart application
-        code: ssh -i $PRIVATEKEY_PATH -l avlasov avlasov.us -p 2048 "pm2 restart code-samples"
+        code: ssh -i $PRIVATEKEY_PATH -l avlasov avlasov.us -p 2048 "NODE_ENV=production pm2 restart code-samples"
