@@ -35,12 +35,12 @@ deploy:
         code: |
           pwd
           ls -la
-          scp -i $PRIVATEKEY_PATH -P 2048 -rp public avlasov@avlasov.us:/home/avlasov/projects/samples
-          scp -i $PRIVATEKEY_PATH -P 2048 -rp lib avlasov@avlasov.us:/home/avlasov/projects/samples
-          scp -i $PRIVATEKEY_PATH -P 2048 app.js package.json avlasov@avlasov.us:/home/avlasov/projects/samples
+          scp -i $PRIVATEKEY_PATH -rp public avlasov@avlasov.us:/home/avlasov/projects/samples
+          scp -i $PRIVATEKEY_PATH -rp lib avlasov@avlasov.us:/home/avlasov/projects/samples
+          scp -i $PRIVATEKEY_PATH app.js package.json avlasov@avlasov.us:/home/avlasov/projects/samples
     - script:
         name: npm install
-        code: ssh -i $PRIVATEKEY_PATH -l avlasov avlasov.us -p 2048 "cd /home/avlasov/projects/samples && npm install --production"
+        code: ssh -i $PRIVATEKEY_PATH -l avlasov avlasov.us "cd /home/avlasov/projects/samples && npm install --production"
     - script:
         name: restart application
-        code: ssh -i $PRIVATEKEY_PATH -l avlasov avlasov.us -p 2048 "NODE_ENV=production pm2 restart code-samples"
+        code: ssh -i $PRIVATEKEY_PATH -l avlasov avlasov.us "NODE_ENV=production pm2 restart code-samples"
