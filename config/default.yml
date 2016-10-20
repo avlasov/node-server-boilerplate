@@ -1,8 +1,6 @@
 ---
-session:
-  resave: true
-  saveUnitialized: true
-  secret: "SECRET"
+server:
+  port: 1338
 slack:
   webhook: "https://hooks.slack.com/services/MYSLACK/WEBHOOK"
   channel: mychannel
