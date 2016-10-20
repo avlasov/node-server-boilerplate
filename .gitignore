@@ -3,3 +3,5 @@ public
 .tmp
 .idea/
 ansible.cfg
+logs/*
+!logs/.gitkeep
