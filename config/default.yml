@@ -21,7 +21,7 @@ logger:
       level: info
       handleExceptions: true
       filePath: "./logs"
-      filename: sample
+      fileName: sample
       logstash: true
       maxsize: 5000000
       humanReadableUnhandledException: false

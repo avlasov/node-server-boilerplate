@@ -12,6 +12,7 @@ const validFileTypes = ['js'];
  * examples:
  *  getHandler('get', '/api/healthcheck') // returns 'getHealthcheck'
  *  getHandler('get', '/api/period-over-period/weekly') //returns 'getPeriodOverPeriodWeekly'
+ *  getHandler('post', '/api/v1/my-versioned-api') //returns 'postMyVersionedApi'
  */
 function getHandler(action, path) {
     return action + path.split('/').map(function (part) {
@@ -19,7 +20,8 @@ function getHandler(action, path) {
                 return '';
             }
             return part.split('-').map(function (word) {
-                return (word === 'api') ? '' : word.charAt(0).toUpperCase() + word.slice(1);
+                // ignore /api and api/version part of the path
+                return (word === 'api' || /^v\d$/.test(word)) ? '' : word.charAt(0).toUpperCase() + word.slice(1);
             }).join('');
         }).join('');
 }

@@ -8,8 +8,8 @@ const Bluebird = require('bluebird');
 logger.info('loading healthcheck route');
 
 const routes = [
-    'GET /api/healthcheck',
-    'GET /api/healthcheck-failure',
+    'GET /api/v1/healthcheck',
+    'GET /api/v1/healthcheck-failure',
 ];
 
 const handlers = {
