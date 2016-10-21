@@ -5,11 +5,11 @@
 const fs = require('fs');
 const validFileTypes = ['js'];
 
-function requireFiles(directory, router) {
+function insertRoutes(directory, router) {
     fs.readdirSync(directory).forEach(function (fileName) {
         // Recurse if directory
         if (fs.lstatSync(directory + '/' + fileName).isDirectory()) {
-            requireFiles(directory + '/' + fileName, router);
+            insertRoutes(directory + '/' + fileName, router);
         } else {
 
             // Skip itself
@@ -59,7 +59,7 @@ module.exports = function (app) {
         });
     }
 
-    requireFiles(__dirname, router);
+    insertRoutes(__dirname, router);
 
     /**
      * Catch 404s
