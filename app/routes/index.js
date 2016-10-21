@@ -5,32 +5,11 @@
 const fs = require('fs');
 const validFileTypes = ['js'];
 
-/**
- * Analyze route path and return camel cased handler name.
- * @param {string} action GET, POST etc
- * @param {string} path api path
- * examples:
- *  getHandler('get', '/api/healthcheck') // returns 'getHealthcheck'
- *  getHandler('get', '/api/period-over-period/weekly') //returns 'getPeriodOverPeriodWeekly'
- *  getHandler('post', '/api/v1/my-versioned-api') //returns 'postMyVersionedApi'
- */
-function getHandler(action, path) {
-    return action + path.split('/').map(function (part) {
-            if (part.indexOf(':') !== -1) { // ignore route params
-                return '';
-            }
-            return part.split('-').map(function (word) {
-                // ignore /api and api/version part of the path
-                return (word === 'api' || /^v\d$/.test(word)) ? '' : word.charAt(0).toUpperCase() + word.slice(1);
-            }).join('');
-        }).join('');
-}
-
-function requireFiles(directory, app, router) {
+function requireFiles(directory, router) {
     fs.readdirSync(directory).forEach(function (fileName) {
         // Recurse if directory
         if (fs.lstatSync(directory + '/' + fileName).isDirectory()) {
-            requireFiles(directory + '/' + fileName, app, router);
+            requireFiles(directory + '/' + fileName, router);
         } else {
 
             // Skip itself
@@ -44,7 +23,7 @@ function requireFiles(directory, app, router) {
             }
 
             // Require the file.
-            require(directory + '/' + fileName)(app, router);
+            require(directory + '/' + fileName)(router);
         }
     });
 }
@@ -56,42 +35,31 @@ module.exports = function (app) {
      * This function is passed DI way to all routes.
      * It's purpose is to dynamically read routes and assign
      * the appropriate handlers to them.
-     * @param {Object[]} routes - List of routes
-     * @param {Object} handlers - map of handlers (handlers are implemented within the route)
+     * @param {Array} routes - routes and their handlers
      * Example (Usage within the route):
      *  const routes = [
-     *      'GET /api/healthcheck',
-     *      'POST /api/account/:id/client/:clientid',
-     *      'GET /api/healthcheck/helloworld'
+     *      ['GET /api/healthcheck', getCheck],
+     *      ['POST /api/account/:id/client/:clientid', postClient],
      *  ]
-     *  var handlers = {
-         *    getHealthcheck: getHealthcheck,
-         *    postAccountClient: myCustomFunction
-         *  };
-     *  router(routes, handlers)
-     *  Creates following handlers:
-     *    app.get('/api/healthcheck', getHealthcheck(req, res) { ... })
-     *    app.post('/api/account/:id/client/:clientid', myCustomFunction(req, res) { ... })
-     *  Note that 'GET /api/healthcheck/helloworld' will be ignored, since the handler is undefined.
-     *  Note that all route parameters, such as :id, will be skipped when creating a handler name.
+     *  router(routes);
+     *
      *  All handlers should return promises to be compatible with the router.
      */
-    const router = function (routes, handlers) {
-        routes.map(function (route) {
-            const routeConfig = route.split(' ');
-            const method = routeConfig[0].toLowerCase();
-            const path = routeConfig[1];
-            const handler = getHandler(method, path);
-            if (typeof handlers[handler] !== 'function') {
+
+    const router = (routes) => {
+        return routes.map((route) => {
+            const [routeDefinition, handler] = route;
+            if (typeof handler !== 'function') {
                 return;
             }
-            return app[method](path, function (req, res) {
-                return handlers[handler](req, res);
+            const [method, path] = routeDefinition.split(' ');
+            return app[method.toLowerCase()](path, function (req, res) {
+                return handler(req, res);
             });
         });
     }
 
-    requireFiles(__dirname, app, router);
+    requireFiles(__dirname, router);
 
     /**
      * Catch 404s

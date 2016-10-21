@@ -8,18 +8,13 @@ const Bluebird = require('bluebird');
 logger.info('loading healthcheck route');
 
 const routes = [
-    'GET /api/v1/healthcheck',
-    'GET /api/v1/healthcheck-failure',
+    ['GET /api/v1/healthcheck', sendOK],
+    ['GET /api/v1/healthcheck-failure', failCheck],
 ];
 
-const handlers = {
-    getHealthcheck: sendOK,
-    getHealthcheckFailure: failCheck
-};
-
-module.exports = function (app, router) {
+module.exports = function (router) {
     try {
-        router(routes, handlers);
+        router(routes);
     } catch (err) {
         logger.error(err);
     }
