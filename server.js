@@ -31,3 +31,5 @@ require('./app/routes')(app);
 const port = config.get('server').port
 server.listen(port);
 logger.info(`Server running on port ${port}...`);
+
+
