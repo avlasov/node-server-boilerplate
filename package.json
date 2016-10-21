@@ -2,6 +2,8 @@
   "name": "node-server-boilerplate",
   "main": "server.js",
   "version": "1.0.0",
+  "description": "A quick server with 100% configurable options and minimal dependencies.",
+  "author": "Andre Vlasov <avlasov0404@gmail.com>",
   "engines": {
     "node": "6.2.1"
   },
@@ -12,8 +14,6 @@
     "express-winston": "^2.0.0",
     "js-yaml": "^3.6.1",
     "moment": "^2.15.1",
-    "rootpath": "^0.1.2",
-    "superagent": "^2.3.0",
     "winston": "^2.2.0"
   },
   "devDependencies": {
@@ -22,7 +22,6 @@
     "supertest": "^0.15.0"
   },
   "scripts": {
-    "test": "mocha ./test/server",
     "start": "node server.js"
   }
 }
