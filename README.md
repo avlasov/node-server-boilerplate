@@ -6,7 +6,7 @@ A quick server with 100% configurable options and minimal dependencies.
 
 - Convenient API routes structure. Just drop your route file(s) into routes folder, define route paths and handlers, and that's it.
 - Advanced logging using [winston](https://github.com/winstonjs/winston) library. There are 3 transports currently set up: application, debugging and slack. Application transport logs to a console and a file system in logstash format, so the files can be picked up by your logging tools. Slack is a custom transport with a name that speaks for itself. 
-- Bonus: in `src/scripts/events.js` is my old, ES5 based small event object, that allows to put events on custom objects, and trigger them. It was more designed for a front end , and pretty useless at this point, but I just left it there as a reminder for me, to see where I started. 
+- Bonus: in `src/scripts/events.js` is my old, ES5 based small event object, that allows to put events on custom objects, and trigger them. It was more designed for a front end , and pretty useless at this point. I just left it there as a reminder for myself where I started. 
 
 Many yet to come. Initially I had authentication and session management as part of this boilerplate, but I removed it, as I find that it's usually very customized setup for each project. Nevertheless, I recommend [passport.js](http://passportjs.org/) for auth, and Redis based solution for session storage.
 
