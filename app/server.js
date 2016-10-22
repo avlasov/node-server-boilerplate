@@ -5,12 +5,11 @@
 const config = require('config');
 const express = require('express');
 
-const logger = require('./app/utils/logger').app;
+const logger = require('./utils/logger').app;
 const expressWinston = require('express-winston');
 const loggerSettings = config.get('logger');
 
 const app = express();
-const server = require('http').createServer(app);
 
 // log routes
 app.use(expressWinston.logger({
@@ -22,14 +21,8 @@ app.use(expressWinston.logger({
 /**
  * Recursively include all routes
  */
-require('./app/routes')(app);
+require('./routes/index')(app);
 
-
-/**
- * Start up server
- */
-const port = config.get('server').port
-server.listen(port);
-logger.info(`Server running on port ${port}...`);
+module.exports = app;
 
 
