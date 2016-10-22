@@ -18,11 +18,13 @@
     "winston": "^2.2.0"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "jshint-stylish": "^1.0.1",
-    "mocha": "^2.2.1",
-    "supertest": "^0.15.0"
+    "mocha": "^2.5.3",
+    "supertest": "^2.0.1"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "./node_modules/mocha/bin/mocha test/spec"
   }
 }
