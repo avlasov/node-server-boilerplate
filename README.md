@@ -29,6 +29,7 @@ Run `npm test`
 ## ToDo
 Ahh, there is always something to do.
 I will be adding some extra goodies in the few days:
+~~- Tests~~
 - Vagrant provisioning with Ansible. I will be adding a Vagrant file and an Ansible role, that provisions a small ubuntu box with application running on it persistently. I will definitely be adding Redis and session management to the box, and perhaps a database or two, for models boilerplate.
 - Maybe a packer config to create an AWS AMI.
 - CI with travis
