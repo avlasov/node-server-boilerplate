@@ -1,7 +1,7 @@
 {
   "name": "node-server-boilerplate",
   "main": "server.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A quick server with 100% configurable options and minimal dependencies.",
   "author": "Andre Vlasov <avlasov0404@gmail.com>",
   "engines": {
