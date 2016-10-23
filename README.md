@@ -1,4 +1,4 @@
-# Node.js Server Boilerplate
+# Node.js Server Boilerplate [![Build Status](https://travis-ci.org/avlasov/node-server-boilerplate.svg?branch=master)](https://travis-ci.org/avlasov/node-server-boilerplate)
 
 A quick server with 100% configurable options and minimal dependencies.
 
