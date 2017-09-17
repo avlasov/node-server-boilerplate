@@ -34,6 +34,6 @@ function failCheck(req, res) {
         throw new Error('Route intentionally failing.');
     }).catch((err) => {
         logger.error(err);
-        return res.sendStatus(500);
+        return res.status(500).send('Intentional Error Test');
     });
 }
