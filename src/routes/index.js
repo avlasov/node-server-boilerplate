@@ -2,34 +2,40 @@
  * Handle server routes
  */
 
-const fs = require('fs');
-const validFileTypes = ['js'];
+import fs from 'fs'
+// import logger from "../services/logger"
+const validFileTypes = ['js']
 
-function insertRoutes(directory, router) {
+const insertRoutes = (directory, router) => {
     fs.readdirSync(directory).forEach(function (fileName) {
         // Recurse if directory
         if (fs.lstatSync(directory + '/' + fileName).isDirectory()) {
-            insertRoutes(directory + '/' + fileName, router);
+            insertRoutes(directory + '/' + fileName, router)
         } else {
 
             // Skip itself
             if (fileName === 'index.js' && directory === __dirname) {
-                return;
+                return
             }
 
             // Skip unknown filetypes
             if (validFileTypes.indexOf(fileName.split('.').pop()) === -1) { // ensure only valid file types are included
-                return;
+                return
             }
 
-            // Require the file.
-            require(directory + '/' + fileName)(router);
+            // Import the file.
+            const routes = require(`${directory}/${fileName}`)
+            try {
+                router(routes)
+            } catch (e) {
+                // logger.error(e)
+            }
+            router(routes)
         }
-    });
+    })
 }
 
-
-module.exports = function (app) {
+export default function (app) {
 
     /**
      * This function is passed DI way to all routes.
@@ -41,30 +47,30 @@ module.exports = function (app) {
      *      ['GET /api/healthcheck', getCheck],
      *      ['POST /api/account/:id/client/:clientid', postClient],
      *  ]
-     *  router(routes);
+     *  router(routes)
      *
      *  All handlers should return promises to be compatible with the router.
      */
 
     const router = (routes) => {
         return routes.map((route) => {
-            const [routeDefinition, handler] = route;
+            const [routeDefinition, handler] = route
             if (typeof handler !== 'function') {
-                return;
+                return
             }
-            const [method, path] = routeDefinition.split(' ');
-            return app[method.toLowerCase()](path, function (req, res) {
-                return handler(req, res);
-            });
-        });
+            const [method, path] = routeDefinition.split(' ')
+            return app[method.toLowerCase()](path, function (req, res, next) {
+                return handler(req, res, next)
+            })
+        })
     }
 
-    insertRoutes(__dirname, router);
+    insertRoutes(__dirname, router)
 
     /**
      * Catch 404s
      */
     app.get('*', function (req, res) {
-        res.sendStatus(404);
-    });
-};
+        res.sendStatus(404)
+    })
+}

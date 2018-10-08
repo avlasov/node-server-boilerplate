@@ -1,7 +1,4 @@
 node_modules
-public
-.tmp
-.idea/
-ansible.cfg
+dist
 logs/*
 !logs/.gitkeep
