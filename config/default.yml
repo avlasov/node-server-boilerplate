@@ -1,27 +1,8 @@
 ---
 server:
   port: 1338
-slack:
-  webhook: "https://hooks.slack.com/services/MYSLACK/WEBHOOK"
-  channel: mychannel
-  domain: sampleSlackTeam
-  username: sampleBot
 logger:
-  middleware:
-    meta: true
-  transports:
-    console:
-      timestamp: true
-      formatter: false
-      level: silly
-      colorize: true
-      handleExceptions: true
-      humanReadableUnhandledException: true
-    file:
-      level: info
-      handleExceptions: true
-      filePath: "./logs"
-      fileName: sample
-      logstash: true
-      maxsize: 5000000
-      humanReadableUnhandledException: false
+  logPath: './logs'
+  fileName: 'combined.log'
+  level: 'info'
+
